@@ -1,10 +1,16 @@
 const magik = magikcraft.io;
 
 // This is the shape of our state
+
+interface layer {
+    material: string;
+    location: BukkitLocation;
+}
 interface platformState {
     initialised: boolean;
     initial_position: BukkitLocation;
-    layers: BukkitLocation[]
+    layers: layer[],
+    baselayers: layer[]
 }
 
 /**
@@ -29,7 +35,7 @@ export function platforms(glassLayers = 5, radius = 15, spacing = 4) {
     }
 
     // Helper function that creates a new location spaced above the one passed in
-    function addY(loc: BukkitLocation, y: number) {
+    function addY(loc: BukkitLocation, y: number): BukkitLocation {
         const newLoc = loc.clone();
         newLoc.setY(newLoc.getY() + y);
         return newLoc;
@@ -41,25 +47,24 @@ export function platforms(glassLayers = 5, radius = 15, spacing = 4) {
 
         // The base level will be created where we are standing, so clone the current player location
         platformState.initial_position = magik.hic().clone();
+        platformState.layers = [];
+        platformState.baselayers = [];
 
-        // First we create a bedrock layer
+        // First we specify a bedrock layer
         const bedrockLayerLocation = platformState.initial_position;
-        makeLayer('bedrock', bedrockLayerLocation);
+        platformState.baselayers.push({material: 'bedrock', location: bedrockLayerLocation});
 
         // Now we create a lava layer
         const lavaLayerLocation = addY(bedrockLayerLocation, 1);
-        makeLayer('lava', lavaLayerLocation);
+        platformState.baselayers.push({material: 'lava', location: lavaLayerLocation});
 
-        // Now we put the glass layers into an array of layers
+        platformState.layers.push({material: 'glass', location: addY(lavaLayerLocation, spacing)});
 
-        // Make the first glass layer
-        platformState.layers = [addY(lavaLayerLocation, spacing)];
-
-        // Now use a loop to place the other glass layers, each one spaced above the previous one
-        for (let i = 1; i < glassLayers; i++) {
-            platformState.layers.push(addY(layers[i-1], spacing));
+        // Now use a loop to place the glass layers, each one spaced above the previous one
+        for (let i = 1; i < glassLayers - 1; i++) {
+            platformState.layers.push({material: 'glass', location: addY(layers[i-1], spacing)});
         }
-
+        platformState.baselayers.forEach(layer => makeLayer(layer));
         // OK, we're initialised
         platformState.initialised = true;
 
@@ -69,14 +74,16 @@ export function platforms(glassLayers = 5, radius = 15, spacing = 4) {
     }
 
     // Here we (re)lay the glass layers. We use a forEach iterator on the array
-    platformState.layers.forEach(layer => makeLayer('glass', layer));
+    platformState.layers.forEach(layer => makeLayer(layer));
 
+    magik.exsultus(100);
+    magik.volare(1500);
 
     // Make a layer, given a material and a location
-    function makeLayer (material: string, location: BukkitLocation) {
+    function makeLayer (layer: layer) {
         // teleport the player to the location
-        magik.ianuae(location);
-        const cmd = `/cyl ${material} ${radius} 1`
+        magik.ianuae(layer.location);
+        const cmd = `/cyl ${layer.material} ${radius} 1`
         run (cmd);
     }
 }

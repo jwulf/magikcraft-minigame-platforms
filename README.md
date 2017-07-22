@@ -24,7 +24,7 @@ function game(module, spell = '_default') {
 Now click on your avatar in the top-right corner, then select "Manage Plugins". Edit the `package.json` file and add this line to `dependencies`:
 
 ```
-"magikcraft-minecraft-platforms": "magikcraft-minigame-platforms"
+"magikcraft-minigame-platforms": ""
 ```
 
 Save the file, then connect to a Magikcraft server with your Minecraft client.
@@ -36,3 +36,9 @@ Once connected, type: `/cast game platforms`.
 You can fork the code for this package on GitHub at [ https://github.com/jwulf/magikcraft-minigame-platforms]( https://github.com/jwulf/magikcraft-minigame-platforms).
 
 Update your `package.json` in your spellbook to point to the GitHub URL of your fork, and you will be running your own version, which you can modify at will.
+
+For example, here is how I run the develop branch of my version:
+
+```
+"magikcraft-minigame-platform" : "https://github.com/jwulf/magikcraft-minigame-platforms.git#develop"
+```

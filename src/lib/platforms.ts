@@ -20,8 +20,6 @@ interface platformState {
 
 const platformState = magik.global('sitapati.platforms') as platformState;
 
-const layers: any[] = [];
-
 // Short-hand function
 const say = magik.dixit;
 
@@ -62,7 +60,7 @@ export function platforms(glassLayers = 5, radius = 15, spacing = 4) {
 
         // Now use a loop to place the glass layers, each one spaced above the previous one
         for (let i = 1; i < glassLayers - 1; i++) {
-            platformState.layers.push({material: 'glass', location: addY(layers[i-1], spacing)});
+            platformState.layers.push({material: 'glass', location: addY(platformState.layers[i-1].location, spacing)});
         }
         platformState.baselayers.forEach(layer => makeLayer(layer));
         // OK, we're initialised

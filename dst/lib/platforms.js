@@ -6,7 +6,6 @@ var magik = magikcraft.io;
  * This allows our spell to know about previous times it was run.
  */
 var platformState = magik.global('sitapati.platforms');
-var layers = [];
 // Short-hand function
 var say = magik.dixit;
 function platforms(glassLayers, radius, spacing) {
@@ -41,7 +40,7 @@ function platforms(glassLayers, radius, spacing) {
         platformState.layers.push({ material: 'glass', location: addY(lavaLayerLocation, spacing) });
         // Now use a loop to place the glass layers, each one spaced above the previous one
         for (var i = 1; i < glassLayers - 1; i++) {
-            platformState.layers.push({ material: 'glass', location: addY(layers[i - 1], spacing) });
+            platformState.layers.push({ material: 'glass', location: addY(platformState.layers[i - 1].location, spacing) });
         }
         platformState.baselayers.forEach(function (layer) { return makeLayer(layer); });
         // OK, we're initialised

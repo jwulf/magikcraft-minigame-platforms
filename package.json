@@ -1,0 +1,34 @@
+{
+  "name": "magikcraft-minigame-platforms",
+  "version": "1.0.0",
+  "description": "The original Magikcraft minigame - platforms",
+  "main": "dst/index.js",
+  "scripts": {
+    "test": "jest",
+    "precommit": "tsc -p tsconfig.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jwulf/magikcraft-minigame-platforms.git"
+  },
+  "keywords": [
+    "magikcraft",
+    "minecraft",
+    "javascript",
+    "minigame"
+  ],
+  "author": "The Legendary Josh Wulf™ - As Seen on the Internet® <josh@magikcraft.io>",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/jwulf/magikcraft-minigame-platforms/issues"
+  },
+  "homepage": "https://github.com/jwulf/magikcraft-minigame-platforms#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "husky": "^0.14.3",
+    "jest": "^20.0.4",
+    "magikcraft.io": "^0.9.10",
+    "ts-jest": "^20.0.7",
+    "typescript": "2.4"
+  }
+}
